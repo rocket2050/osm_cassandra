@@ -1,0 +1,22 @@
+---
+
+- name: Pre Check JAVA installed or Not
+  shell: command -v java
+  register: check_java
+  ignore_errors: True
+  changed_when: False
+     
+- name: Install Java in Ubuntu
+  include: java.yml
+  when: ansible_os_family == 'Debian' and check_java.rc > 0
+
+- name: Pre Check Cassandra Installed or Not 
+  shell: command -v cqlsh
+  register: check_cqlsh
+  ignore_errors: True
+  changed_when: False
+
+- name: Install Cassandra in Ubuntu
+  include: cassandra.yml
+  when: ansible_os_family == 'Debian' and check_cqlsh.rc > 0
+

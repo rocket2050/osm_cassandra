@@ -1,0 +1,32 @@
+---
+
+#install cassendra
+#
+- name: Add an Apt signing key
+  apt_key:
+    keyserver: "{{ item.key }}"
+    id: "{{ item.ida }}"
+  with_items:
+    - { key: 'pgp.mit.edu', ida: 'F758CE318D77295D' }
+    - { key: 'pgp.mit.edu', ida: '2B5C1B00' }
+    - { key: 'pgp.mit.edu', ida: '0353B12C' }
+    
+
+- name: Adding the repo so that the packages are available to the system
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - deb http://www.apache.org/dist/cassandra/debian 37x main
+    - deb-src http://www.apache.org/dist/cassandra/debian 37x main
+
+- name: Installing Apache Cassandra
+  apt:
+    name: cassandra
+    state: latest
+    update_cache: yes
+  notify: 
+    - Start Cassandra
+  
+
+ 

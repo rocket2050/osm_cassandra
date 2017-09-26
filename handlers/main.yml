@@ -1,0 +1,9 @@
+---
+# handlers file for osm_cassandra
+#
+ 
+- name: Start Cassandra
+  service:
+    name: cassandra
+    state: start
+
