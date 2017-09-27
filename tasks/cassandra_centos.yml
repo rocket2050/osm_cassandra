@@ -1,0 +1,20 @@
+
+
+- name: Adding the DataStax Community Repository
+  yum_repository:
+    name: Apache-Cassandra
+    description: Cassandra Repo
+    baseurl: http://rpm.datastax.com/community
+    gpgcheck: no
+  notify:
+    - yum-clean-metadata 
+
+- name: Install Apache Cassandra
+  yum:
+    name: dsc20
+    state: latest
+    update_cache: yes
+  notify:
+    - Start Cassandra
+
+    

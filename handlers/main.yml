@@ -5,5 +5,8 @@
 - name: Start Cassandra
   service:
     name: cassandra
-    state: start
+    state: started
+
+- name: yum-clean-metadata
+  shell: yum clean all
 

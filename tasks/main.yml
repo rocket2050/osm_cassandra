@@ -10,6 +10,10 @@
   include: java.yml
   when: ansible_os_family == 'Debian' and check_java.rc > 0
 
+- name: Install Java in Centos
+  include: java_centos.yml
+  when: ansible_distribution == 'CentOS' and check_java.rc > 0
+
 - name: Pre Check Cassandra Installed or Not 
   shell: command -v cqlsh
   register: check_cqlsh
@@ -19,4 +23,9 @@
 - name: Install Cassandra in Ubuntu
   include: cassandra.yml
   when: ansible_os_family == 'Debian' and check_cqlsh.rc > 0
+
+- name: Install Cassandra in Ubuntu
+  include: cassandra_centos.yml
+  when: ansible_distribution == 'CentOS' and check_cqlsh.rc > 0
+
 
